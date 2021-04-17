@@ -6,7 +6,7 @@ android {
   compileSdkVersion 29
 
   defaultConfig {
-    applicationId "com.raywenderlich.android.ComposableCookBook"
+    applicationId "com.googlecodelabs.android.ComposableCookBook"
     minSdkVersion 22
     targetSdkVersion 29
     versionCode 1

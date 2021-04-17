@@ -1,4 +1,4 @@
-package com.raywenderlich.android.composableCookBook
+package com.googlecodelabs.android.composableCookBook
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.Text
