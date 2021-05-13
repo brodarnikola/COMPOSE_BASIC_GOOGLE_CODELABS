@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
+import com.googlecodelabs.android.composableCookBook.model.StringData
 import com.googlecodelabs.android.composableCookBook.ui.BasicsCodelabTheme
 
 class MainActivity : AppCompatActivity() {
@@ -42,7 +43,7 @@ fun MyApp(content: @Composable () -> Unit) {
 }
 
 @Composable
-fun MyScreenContent(names: List<String> = List(1000) { "Hello Android #$it" }) {
+fun MyScreenContent(names: List<StringData> = List(1000) { StringData("Hello Android #$it" , false) }) { //{ "Hello Android #$it" }) {
   val counterState = remember { mutableStateOf(0) }
 
   Column(modifier = Modifier.fillMaxHeight()) {
@@ -58,9 +59,9 @@ fun MyScreenContent(names: List<String> = List(1000) { "Hello Android #$it" }) {
 
 @OptIn(ExperimentalLazyDsl::class)
 @Composable
-fun NameList(names: List<String>, modifier: Modifier = Modifier) {
+fun NameList(names: List<StringData>, modifier: Modifier = Modifier) {
   LazyColumn(modifier = modifier) {
-    items(items = names) { name ->
+    itemsIndexed(items = names) { index, name ->
       Greeting(name = name)
       Divider(color = Color.Black)
     }
@@ -68,20 +69,22 @@ fun NameList(names: List<String>, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun Greeting(name: String, ) {
+fun Greeting(name: StringData ) {
 
   val isSelected = remember { mutableStateOf(false) }
-  val backgroundColor = if (isSelected.value) Color.Red else Color.Green
+  val backgroundColor = if (name.isSelected) Color.Red else Color.Green
 
   Text(
-          text = "Hello $name!",
+          text = "Hello ${name.textDescription}!",
           modifier = Modifier
                   .padding(24.dp)
                   .background(backgroundColor)
                   .clickable {
+                    name.isSelected = !name.isSelected
                     isSelected.value = !isSelected.value
                   }
   )
+
 }
 
 @Composable
